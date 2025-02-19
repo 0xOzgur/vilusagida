@@ -1,101 +1,195 @@
-import Image from "next/image";
+'use client';
+import { Container, Typography, Button, Box } from '@mui/material';
+import Services from './services';
+import Contact from './components/Contact';
+import { useEffect, useState } from 'react';
+import Providers from './providers';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [isVisible, setIsVisible] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  return (
+    <Providers>
+    <Box component="main" sx={{ minHeight: '100vh', py: 4, bgcolor: 'background.default' }}>
+      
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            position: 'relative',
+            mb: 1,
+            mt: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          {/* Dekoratif çizgi */}
+          <Box
+            sx={{
+              width: { xs: '80px', md: '120px' },
+              height: '4px',
+              bgcolor: 'primary.main',
+              mb: 3,
+              transform: isVisible ? 'scaleX(1)' : 'scaleX(0)',
+              transition: 'transform 0.6s ease-out',
+              transformOrigin: 'left'
+            }}
+          />
+
+          {/* Ana başlık */}
+          <Typography 
+            variant="h1" 
+            component="h1" 
+            align="center"
+            sx={{ 
+              fontWeight: 800,
+              fontSize: { xs: '2.5rem', sm: '3rem', md: '4rem' },
+              color: 'primary.main',
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+              textAlign: 'center',
+              position: 'relative',
+              mb: 2,
+              letterSpacing: '0.02em',
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: '-10px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '60%',
+                height: '2px',
+                backgroundColor: 'primary.light',
+                opacity: 0.5
+              }
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Vilusa
+          </Typography>
+
+          {/* Alt başlık */}
+          <Typography 
+            variant="h2" 
+            component="h2"
+            sx={{
+              fontSize: { xs: '1.5rem', sm: '1.8rem', md: '2.2rem' },
+              color: 'text.secondary',
+              fontWeight: 500,
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.6s ease-out 0.3s, transform 0.6s ease-out 0.3s',
+              textAlign: 'center',
+              letterSpacing: '0.15em',
+              '& span': {
+                color: 'primary.dark',
+                fontWeight: 600,
+                position: 'relative',
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: '-4px',
+                  left: 0,
+                  width: '100%',
+                  height: '2px',
+                  backgroundColor: 'primary.light',
+                  opacity: 0,
+                  transform: 'scaleX(0)',
+                  transition: 'opacity 0.3s, transform 0.3s',
+                  transformOrigin: 'center'
+                },
+                '&:hover::after': {
+                  opacity: 0.5,
+                  transform: 'scaleX(1)'
+                }
+              }
+            }}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            <span>Gıda</span> • <span>Tarım</span> • <span>Sanayi</span>
+          </Typography>
+
+          {/* Dekoratif çizgi */}
+          <Box
+            sx={{
+              width: { xs: '80px', md: '120px' },
+              height: '4px',
+              bgcolor: 'primary.main',
+              mt: 3,
+              transform: isVisible ? 'scaleX(1)' : 'scaleX(0)',
+              transition: 'transform 0.6s ease-out',
+              transformOrigin: 'right'
+            }}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </Box>
+
+        <Services />
+
+        <Box 
+  sx={{ 
+    position: 'relative',
+    my: 2,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    opacity: isVisible ? 1 : 0,
+    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+    transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+  }}
+>
+  {/* Sol dekoratif çizgi */}
+  <Box
+    sx={{
+      flex: 1,
+      height: '2px',
+      background: 'linear-gradient(to right, transparent, #2e7d32)',
+      maxWidth: '200px'
+    }}
+  />
+  
+  {/* Orta ikon veya sembol */}
+  <Box
+    sx={{
+      width: '40px',
+      height: '40px',
+      borderRadius: '50%',
+      border: '2px solid',
+      borderColor: 'primary.main',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      mx: 2,
+      position: 'relative',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        width: '10px',
+        height: '10px',
+        bgcolor: 'primary.main',
+        borderRadius: '50%'
+      }
+    }}
+  />
+  
+  {/* Sağ dekoratif çizgi */}
+  <Box
+    sx={{
+      flex: 1,
+      height: '2px',
+      background: 'linear-gradient(to left, transparent, #2e7d32)',
+      maxWidth: '200px'
+    }}
+  />
+</Box>
+
+<Contact />
+        </Container>
+      </Box>
+    </Providers>
   );
 }
